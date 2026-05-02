@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>For You — Tools for Thinking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f3ea;
+    --bg-warm: #efe6d3;
+    --paper: #ffffff;
+    --ink: #1a1410;
+    --ink-soft: #4a3d33;
+    --ink-mute: #786458;
+    --rust: #b04825;
+    --rust-deep: #7a2f15;
+    --teal: #2d5a5e;
+    --sage: #6e7d5a;
+    --rule: #d8c9af;
+    --rule-soft: #e8dcc4;
+    --shadow-sm: 0 1px 2px rgba(26, 20, 16, 0.04), 0 2px 6px rgba(26, 20, 16, 0.06);
+    --shadow-md: 0 4px 12px rgba(26, 20, 16, 0.08), 0 8px 24px rgba(26, 20, 16, 0.06);
+    --shadow-lg: 0 12px 36px rgba(26, 20, 16, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 17px;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--rust); color: var(--bg); }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 10%, rgba(176, 72, 37, 0.04) 0%, transparent 50%),
+                      radial-gradient(circle at 85% 80%, rgba(45, 90, 94, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+
+  /* ─────────── HERO ─────────── */
+  .hero {
+    margin-bottom: 96px;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 600;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 80px;
+  }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+    font-weight: 300;
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 400;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    color: var(--rust);
+  }
+
+  .lede {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 580px;
+  }
+
+  .hero-rule {
+    width: 64px;
+    height: 2px;
+    background: var(--rust);
+    margin: 48px 0 0;
+  }
+
+  /* ─────────── SECTIONS ─────────── */
+  section {
+    margin: 88px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: rise 0.8s ease forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-num {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--rust);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 400;
+    font-size: clamp(30px, 4.5vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    max-width: 640px;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--rust-deep);
+  }
+
+  h3 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    line-height: 1.3;
+  }
+
+  p {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  p strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  p em { font-style: italic; }
+
+  /* ─────────── PULL QUOTES ─────────── */
+  .pullquote {
+    margin: 56px -16px;
+    padding: 56px 48px;
+    background: var(--paper);
+    border-radius: 4px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pullquote::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--rust) 0%, var(--rust-deep) 100%);
+  }
+
+  .pullquote .mark {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 88px;
+    line-height: 0.6;
+    color: var(--rust);
+    margin-bottom: 8px;
+    height: 36px;
+    opacity: 0.5;
+  }
+
+  .pullquote p {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.42;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .pullquote .attr {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-top: 24px;
+    font-weight: 600;
+  }
+
+  /* ─────────── DAY-1 vs DAY-90 COMPARE ─────────── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 36px 0;
+  }
+
+  .compare-col {
+    background: var(--paper);
+    padding: 28px 26px;
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--rust);
+  }
+
+  .compare-col:first-child { border-top-color: var(--sage); }
+
+  .compare-col h4 {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .compare-col:first-child h4 { color: var(--sage); }
+
+  .compare-col .row {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    font-family: "Fraunces", serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .compare-col .row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .compare-col .day {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .compare-col:first-child .day { color: var(--sage); }
+
+  /* ─────────── QUESTIONS ─────────── */
+  .questions {
+    list-style: none;
+    counter-reset: q;
+    margin: 32px 0;
+  }
+
+  .questions li {
+    counter-increment: q;
+    position: relative;
+    padding: 36px 0 36px 80px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .questions li:last-child { border-bottom: none; }
+
+  .questions li::before {
+    content: counter(q, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 32px;
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--rust);
+    opacity: 0.85;
+    letter-spacing: -0.04em;
+  }
+
+  .q-title {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .questions p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+
+  .questions .sub {
+    background: var(--bg-warm);
+    padding: 18px 22px;
+    border-radius: 4px;
+    margin-top: 16px;
+    border-left: 3px solid var(--rust);
+  }
+
+  .questions .sub p {
+    margin: 6px 0;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ─────────── BODY-LEVEL QUESTIONS (special) ─────────── */
+  .body-questions {
+    background: linear-gradient(135deg, var(--paper) 0%, var(--bg-warm) 100%);
+    padding: 48px 40px;
+    border-radius: 6px;
+    margin: 32px 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .body-questions .label {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .body-questions .intro {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 540px;
+  }
+
+  .body-questions ol {
+    list-style: none;
+    counter-reset: bq;
+  }
+
+  .body-questions ol li {
+    counter-increment: bq;
+    padding: 22px 0 22px 56px;
+    position: relative;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  .body-questions ol li:first-child { border-top: none; padding-top: 0; }
+
+  .body-questions ol li::before {
+    content: counter(bq);
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 36px;
+    height: 36px;
+    background: var(--teal);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .body-questions ol li:first-child::before { top: 0; }
+
+  .body-questions ol p {
+    font-family: "Fraunces", serif;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 0;
+  }
+
+  /* ─────────── THERAPIST CARDS ─────────── */
+  .therapist-grid {
+    display: grid;
+    gap: 12px;
+    margin: 32px 0;
+  }
+
+  .therapist-card {
+    background: var(--paper);
+    border-radius: 4px;
+    padding: 22px 26px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: start;
+    border-left: 3px solid var(--rule);
+  }
+
+  .therapist-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .therapist-card.featured {
+    border-left-color: var(--rust);
+    background: linear-gradient(135deg, var(--paper) 0%, rgba(176, 72, 37, 0.03) 100%);
+  }
+
+  .therapist-card .name {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .therapist-card .credential {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .therapist-card .badge {
+    background: var(--rust);
+    color: var(--bg);
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 100px;
+  }
+
+  .therapist-card .location {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .therapist-card .why {
+    font-family: "Fraunces", serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .therapist-card .phone {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--rust);
+    font-size: 14px;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    align-self: start;
+  }
+
+  .therapist-card .phone a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .region-label {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .region-label::before, .region-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 100px;
+  }
+
+  .region-label:first-of-type { margin-top: 0; }
+
+  /* ─────────── BACKSTOP CALLOUT ─────────── */
+  .backstop {
+    background: var(--bg-warm);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin: 32px 0;
+    border-left: 3px solid var(--teal);
+  }
+
+  .backstop .label {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .backstop p {
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    margin: 6px 0;
+    color: var(--ink);
+  }
+
+  .backstop .phone-inline {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: -0.01em;
+  }
+
+  /* ─────────── PHONE QUESTIONS ─────────── */
+  .phone-qs {
+    list-style: none;
+    counter-reset: pq;
+    margin: 32px 0;
+  }
+
+  .phone-qs li {
+    counter-increment: pq;
+    background: var(--paper);
+    padding: 22px 28px 22px 76px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    font-family: "Fraunces", serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .phone-qs li::before {
+    content: counter(pq);
+    position: absolute;
+    left: 24px;
+    top: 22px;
+    width: 32px;
+    height: 32px;
+    background: var(--rust);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Fraunces", serif;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .flag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 2px;
+  }
+
+  .flag-green { background: var(--sage); color: var(--bg); }
+  .flag-red { background: var(--rust); color: var(--bg); }
+
+  /* ─────────── SECTION CARD ─────────── */
+  .card {
+    background: var(--paper);
+    padding: 36px 40px;
+    border-radius: 6px;
+    margin: 32px 0;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--teal);
+  }
+
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ─────────── DOING-RIGHT LIST ─────────── */
+  .doing-right {
+    list-style: none;
+    margin: 32px 0;
+  }
+
+  .doing-right li {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .doing-right li:last-child { border-bottom: none; }
+
+  .doing-right li::before {
+    content: '✓';
+    color: var(--sage);
+    font-family: "Fraunces", serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  .doing-right li p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  /* ─────────── TIMELINE ─────────── */
+  .timeline {
+    list-style: none;
+    margin: 36px 0;
+    padding-left: 0;
+    border-left: 2px solid var(--rust);
+  }
+
+  .timeline li {
+    padding: 20px 0 28px 36px;
+    position: relative;
+  }
+
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 26px;
+    width: 14px;
+    height: 14px;
+    background: var(--rust);
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--rust);
+  }
+
+  .timeline .week {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .timeline strong {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .timeline p {
+    font-family: "Fraunces", serif;
+    margin: 0;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ─────────── WHY 90 DAYS ─────────── */
+  .ninety-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 32px 0;
+  }
+
+  .ninety-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule-soft);
+    align-items: start;
+  }
+
+  .ninety-row:first-child { border-top: none; padding-top: 0; }
+
+  .ninety-day {
+    font-family: "Fraunces", serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--rust);
+    letter-spacing: -0.01em;
+  }
+
+  .ninety-row p {
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ─────────── BOOKS ─────────── */
+  .books {
+    list-style: none;
+    margin: 24px 0;
+  }
+
+  .books li {
+    padding: 20px 0;
+    border-top: 1px solid var(--rule-soft);
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .books li:first-child { border-top: none; padding-top: 0; }
+
+  .books li strong {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 18px;
+  }
+
+  .books li em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  /* ─────────── FOOTER ─────────── */
+  .footer {
+    margin-top: 96px;
+    padding-top: 48px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink-soft);
+  }
+
+  .footer .ornament {
+    font-size: 24px;
+    color: var(--rust);
+    margin-bottom: 16px;
+    font-style: normal;
+  }
+
+  /* ─────────── PRINT ─────────── */
+  @media print {
+    body { background: white; }
+    body::before { display: none; }
+    .page { padding: 24px; max-width: none; }
+    section { animation: none; opacity: 1; transform: none; page-break-inside: avoid; }
+    .pullquote, .therapist-card, .questions li { page-break-inside: avoid; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 26px; }
+    .pullquote { box-shadow: none; }
+    .therapist-card { box-shadow: none; border: 1px solid var(--rule); }
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 640px) {
+    .page { padding: 48px 22px 80px; }
+    h1 { font-size: 38px; }
+    h2 { font-size: 26px; }
+    .compare { grid-template-columns: 1fr; }
+    .pullquote { margin: 40px -8px; padding: 36px 28px; }
+    .pullquote p { font-size: 19px; }
+    .therapist-card { grid-template-columns: 1fr; }
+    .therapist-card .phone { margin-top: -6px; }
+    .ninety-row { grid-template-columns: 1fr; gap: 4px; }
+    .questions li { padding-left: 60px; }
+    .questions li::before { font-size: 42px; }
+    section { margin: 64px 0; }
+    .body-questions { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <div class="eyebrow">Tools, not a test</div>
+    <h1>Some thinking, a few resources, and <em>zero pressure.</em></h1>
+    <p class="lede">Your brother asked someone to put this together for you. He didn't write it &mdash; he wanted you to have something solid to read on your own time, without it feeling like he was lecturing you. Take what's useful. Ignore the rest.</p>
+    <div class="hero-rule"></div>
+  </header>
+
+  <!-- ────── OPENING PULL QUOTE ────── -->
+  <div class="pullquote" style="--delay: 0.1s">
+    <div class="mark">&ldquo;</div>
+    <p>Trust your gut. It has been collecting evidence longer than any of this advice has &mdash; longer than any therapist will, longer than any list, longer than anything written here. The questions on these pages are not here to teach you something new. They are here to give you a quiet room to hear yourself.</p>
+    <div class="attr">— The premise behind everything in this document</div>
+  </div>
+
+  <!-- ────── WHAT YOU ARE DOING RIGHT ────── -->
+  <section style="--delay: 0.15s">
+    <span class="section-num">— 01 —</span>
+    <h2>What you are <em>already doing right.</em></h2>
+    <p style="color: var(--ink-mute); font-size: 16px; max-width: 540px;">Specific, named, earned. Not flattery.</p>
+    <ul class="doing-right">
+      <li><p><strong>You broke up over a specific, actionable cause</strong> &mdash; mannerisms, dismissiveness, the moments where you weren't seen. Not vague unhappiness. Specific causes are testable; vague ones are not.</p></li>
+      <li><p><strong>You are asking for therapy with a frame</strong> &mdash; a rule, a structure, a challenge. That is a more sophisticated stance than &ldquo;let's see if we can talk it out.&rdquo; You are deliberately inviting third-party scrutiny because you don't want your own assessment muddled.</p></li>
+      <li><p><strong>Your perception is online.</strong> The eye-rolls, the noticing, the not-being-fooled. You are testing him while staying clear-eyed. That is the hardest combination to hold in this kind of moment.</p></li>
+      <li><p><strong>You are using your resources.</strong> People who triangulate input make better decisions than people who try to handle this entirely solo. Asking for help is competence, not weakness.</p></li>
+      <li><p><strong>You chose in-person therapy</strong>, not the easiest version. Your threshold for what counts as real is high.</p></li>
+      <li><p><strong>You are giving him a chance &mdash; <em>with structure.</em></strong> That's fair to him AND smart for you. The hardest stance to hold and the right one.</p></li>
+    </ul>
+  </section>
+
+  <!-- ────── THE THING WORTH SAYING FIRST ────── -->
+  <section style="--delay: 0.2s">
+    <span class="section-num">— 02 —</span>
+    <h2>The thing worth saying <em>first.</em></h2>
+    <p>It is completely human for someone to want to fix things after a breakup. Wanting to repair a rupture, not wanting someone you love to be upset with you, putting the gaming setup away because you said it mattered &mdash; that is not pathological. That is just being a person.</p>
+    <p>So if part of you is feeling guilty for being suspicious of the changes, you do not have to be. <strong>Wanting to believe him isn't naive. Wanting to test it isn't cynical.</strong> Both can be true at the same time, and you are allowed to hold both.</p>
+    <p>Here's the honest thing about this kind of moment: nobody &mdash; not you, not him, not a therapist on Day 1 &mdash; can tell from early behavior whether someone's change is real or whether it's relief that they didn't actually lose you. They look identical at first.</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <h4>Genuine change</h4>
+        <div class="row"><span class="day">Day 1</span>Puts the computer away. Says "I heard you."</div>
+        <div class="row"><span class="day">Day 30</span>Computer still away. Beginning to address why he was using it as a refuge.</div>
+        <div class="row"><span class="day">Day 90</span>Sustained behavior change with no audience. Internal narrative: "I want to be different."</div>
+      </div>
+      <div class="compare-col">
+        <h4>Panicked, not yet real</h4>
+        <div class="row"><span class="day">Day 1</span>Puts the computer away. Says "I heard you."</div>
+        <div class="row"><span class="day">Day 30</span>Computer still away, but increasingly: "See, I changed &mdash; can we go back to normal now?"</div>
+        <div class="row"><span class="day">Day 90</span>Reverts, or relocates the avoidance to something else. Narrative: "I did what she asked. What more does she want?"</div>
+      </div>
+    </div>
+
+    <p>Both look identical on Day 1. They diverge over time. <strong>What real change does well, and what panicked-but-not-yet-real change doesn't, is keep going when nobody is watching, when the threat of losing you isn't fresh, when there is no audience for it.</strong></p>
+  </section>
+
+  <!-- ────── WHY 90 DAYS PULL QUOTE ────── -->
+  <div class="pullquote" style="--delay: 0.25s">
+    <div class="mark">&ldquo;</div>
+    <p>The protective frame is <strong>time</strong>. Real change has nothing to fear from time. Three months will tell you more than any promise can.</p>
+  </div>
+
+  <!-- ────── WHY 90 DAYS ────── -->
+  <section style="--delay: 0.3s">
+    <span class="section-num">— 03 —</span>
+    <h2>Why <em>ninety days</em> specifically.</h2>
+    <p>It's not a magic number. It's the shortest window where you get meaningful signal, and the longest window where it still feels reasonable to ask. Six months would be more diagnostic. Twelve would be definitive. Ninety is the floor where performance starts to crack from its own weight.</p>
+
+    <h3>What's expensive to sustain right now</h3>
+    <div class="ninety-grid">
+      <div class="ninety-row">
+        <div class="ninety-day">Day 30</div>
+        <p>Breakup adrenaline that's fueling frantic compliance starts to fade. The first irritation cracks usually appear here.</p>
+      </div>
+      <div class="ninety-row">
+        <div class="ninety-day">Day 45–60</div>
+        <p>Original stressors return — work, money, family. His old triggers come back. <em>How he reacts is the real test</em>, not how he reacted in the first three weeks when adrenaline was running everything.</p>
+      </div>
+      <div class="ninety-row">
+        <div class="ninety-day">Day 60–75</div>
+        <p>The first significant disagreement happens. Couples cannot go three months without one. <em>How that conflict gets resolved</em> is high-signal: real change shows up in repair behavior; performance change shows up in defensiveness.</p>
+      </div>
+      <div class="ninety-row">
+        <div class="ninety-day">Day 75–90</div>
+        <p>External audience fades. Friends, family, therapist have stopped watching the "new him." <em>Behavior in private with no audience</em> is the cleanest read.</p>
+      </div>
+      <div class="ninety-row">
+        <div class="ninety-day">~ Session 6–8</div>
+        <p>Therapy moves from rapport-building into actual work. <em>How he engages</em> when the therapist starts pressing on the harder things is the highest-quality signal you'll get from any source.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 32px;"><strong>Almost everything that looks like change right now costs <em>him</em> energy to maintain.</strong> That's the whole point. He cannot run the performance any longer than his energy reserves allow. <em>Real change is cheaper over time, not more expensive</em> &mdash; because it's becoming who he is, not what he's doing. By Day 90, real change is restful. Performance is exhausting. The fatigue gradient itself is the test.</p>
+  </section>
+
+  <!-- ────── QUESTIONS ────── -->
+  <section style="--delay: 0.35s">
+    <span class="section-num">— 04 —</span>
+    <h2>Some questions, when you have a <em>quiet hour.</em></h2>
+    <p style="color: var(--ink-mute); font-size: 16px; max-width: 580px;">Pick the ones that feel sharp. Skip the rest. There are no right answers. These are not test questions &mdash; they're tools to surface what your gut already knows.</p>
+
+    <ol class="questions">
+      <li>
+        <span class="q-title">The five-year question.</span>
+        <p>Imagine yourself five years from now, in the life you most want. Picture the morning. Picture who is in the kitchen. Picture what you stopped doing.</p>
+        <p>Is the relationship you are considering returning to a fit for <em>that</em> life &mdash; or for an older version of you that you have been quietly outgrowing?</p>
+      </li>
+      <li>
+        <span class="q-title">The cause-vs-noise question.</span>
+        <p>What was the specific thing that made you break up with him? Be precise.</p>
+        <p>Has <em>that</em> thing been addressed &mdash; or has the noise around it (texts, gestures, apologies, computer-put-away) just gotten louder while the thing itself stayed the same?</p>
+      </li>
+      <li>
+        <span class="q-title">The friend question.</span>
+        <p>If your closest friend described to you, in detail, exactly what is happening in her relationship right now &mdash; same patterns, same gestures, same panicked changes after a forced breakup &mdash; what would you tell her?</p>
+        <p>Would it be the same thing you are telling yourself?</p>
+      </li>
+      <li>
+        <span class="q-title">The two-futures question.</span>
+        <p>Sit with each of these for a minute, separately:</p>
+        <div class="sub">
+          <p>If you knew, with certainty, that nothing about him would actually change in six months &mdash; what would you do today?</p>
+          <p>If you knew, with certainty, that he would genuinely become the partner you wanted in six months &mdash; what would you do today?</p>
+        </div>
+        <p style="margin-top: 14px;">The gap between those two answers tells you what you are really weighing.</p>
+      </li>
+      <li>
+        <span class="q-title">The fear-as-data question.</span>
+        <p>What are you afraid of about being alone, or about leaving for real?</p>
+        <p>Is that fear a <em>reason</em>, or is it the <em>actual problem you are avoiding</em>? Both are valid. They call for different responses.</p>
+      </li>
+      <li>
+        <span class="q-title">The complacency question.</span>
+        <p>Has there been a slow drift in this relationship, where you accepted things you would not have accepted at the start?</p>
+        <p>If yes &mdash; was the breakup the first time you stopped accepting them? Is the version of you that finally said <em>no</em> the version you want to keep, regardless of what happens next?</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ────── THREE BODY-LEVEL QUESTIONS ────── -->
+  <section style="--delay: 0.4s">
+    <span class="section-num">— 05 —</span>
+    <h2>Three questions for your <em>body, not your mind.</em></h2>
+    <p>The previous questions are for your thinking self. These three are different. They're for the part of you that arrives at conclusions before words do. Read each one, sit with it for thirty seconds, and notice what your body does <em>before</em> your brain explains it.</p>
+
+    <div class="body-questions">
+      <div class="label">— Trust the first reaction —</div>
+      <div class="intro">There are no right answers. Notice what your body does, fast, before your mind has time to argue with it.</div>
+      <ol>
+        <li><p>Imagine he becomes <em>exactly</em> the partner you wanted &mdash; attentive, curious about your day, never dismissive, fully fixed. Sit with that picture. <strong>How does your body feel? Joyful? Or vaguely trapped?</strong></p></li>
+        <li><p>When he is not in the room, what does the absence feel like? <strong>Empty space waiting to be filled? Or air?</strong></p></li>
+        <li><p>If a friend offered to set you up with someone tomorrow, what is the <em>first</em> thing your body does &mdash; before you remember you are "in a relationship right now"? <strong>Recoil? Or curiosity?</strong></p></li>
+      </ol>
+    </div>
+
+    <p>These questions are not asking you to decide anything. They're asking you to <em>listen</em>. If the answers are joyful / missing / no thanks &mdash; you are testing repair, and the rest of this document is for you. If the answers are trapped / air / curiosity &mdash; you have already arrived somewhere your brain hasn't fully caught up to yet, and the document is still for you, just differently. Either is honest.</p>
+
+    <p><strong>"Outgrown" is a valid answer.</strong> Sometimes a relationship ends because one person grew past the other. That's not a failure of effort. It's not anyone being bad. It's just a true conclusion you are allowed to reach. If that's where you are &mdash; or where you arrive at Day 90 &mdash; the structure in this document still works. It becomes the dignified path to leaving, not the path to repair. Either way: it is yours.</p>
+  </section>
+
+  <!-- ────── THE PROTECTIVE FRAME PULL QUOTE ────── -->
+  <div class="pullquote" style="--delay: 0.42s">
+    <div class="mark">&ldquo;</div>
+    <p>You do not have to make any decisions in the next three months you cannot easily walk back. Don't move back in. Don't combine money. Don't sign anything together. Not because he is bad &mdash; because <strong>you deserve to know.</strong></p>
+  </div>
+
+  <!-- ────── THERAPIST SHORTLIST ────── -->
+  <section style="--delay: 0.45s">
+    <span class="section-num">— 06 —</span>
+    <h2>A therapist shortlist, <em>verified.</em></h2>
+    <p style="color: var(--ink-mute); font-size: 16px; max-width: 580px;">Couples therapists on Kauai, all in-person, all licensed in Hawaii (verified through the National Provider Identifier registry), grouped by region. Start with the <strong>Start here</strong> badge.</p>
+
+    <div class="region-label">North Shore</div>
+    <div class="therapist-grid">
+      <div class="therapist-card">
+        <div>
+          <div class="name">Bethanne Kapansky Wright <span class="credential">PsyD</span></div>
+          <div class="location">Kilauea</div>
+          <div class="why">North-shore practice with documented trauma-presenting work. Closest to home.</div>
+        </div>
+        <div class="phone"><a href="tel:8083461674">808-346-1674</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Julie Anne Rider <span class="credential">MFT</span></div>
+          <div class="location">Hanalei</div>
+          <div class="why">Hanalei-based MFT. Convenient north-shore option for couples work.</div>
+        </div>
+        <div class="phone"><a href="tel:8088267433">808-826-7433</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Laurette Demandel-Schaller <span class="credential">PhD, MFT, SAP</span></div>
+          <div class="location">Hanalei + Lihue</div>
+          <div class="why">Senior clinician, dual license (HI/CA), PhD-level. Operates separate Princeville office. Strong credentials.</div>
+        </div>
+        <div class="phone"><a href="tel:8088261490">808-826-1490</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Lighthouse Therapy &amp; Diagnostic Services</div>
+          <div class="location">Kilauea</div>
+          <div class="why">Group practice on the north shore. Multiple clinicians; ask for couples-trained intake.</div>
+        </div>
+        <div class="phone"><a href="tel:8086520466">808-652-0466</a></div>
+      </div>
+    </div>
+
+    <div class="region-label">East Shore</div>
+    <div class="therapist-grid">
+      <div class="therapist-card featured">
+        <div>
+          <div class="name">Tami Yasutake <span class="credential">LMFT</span> <span class="badge">Start here</span></div>
+          <div class="location">Kapaa</div>
+          <div class="why">The only therapist on this list whose NPI registry record carries an explicit Hawaii Medicaid ID and HMSA member ID &mdash; meaning she's actively credentialed with Hawaii Medicaid. Strongest insurance match. Background suggests IPV / family-systems experience.</div>
+        </div>
+        <div class="phone"><a href="tel:8089370512">808-937-0512</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Donna Charron <span class="credential">LMFT</span></div>
+          <div class="location">Kapaa</div>
+          <div class="why">Long-tenured solo practice. Quest status confirm-via-call.</div>
+        </div>
+        <div class="phone"><a href="tel:8088236696">808-823-6696</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Jennifer Stevens <span class="credential">LMFT</span></div>
+          <div class="location">Kapaa</div>
+          <div class="why">Dual Hawaii / California license; two practice locations on Kauai for scheduling flexibility.</div>
+        </div>
+        <div class="phone"><a href="tel:8084820994">808-482-0994</a></div>
+      </div>
+    </div>
+
+    <div class="region-label">Lihue</div>
+    <div class="therapist-grid">
+      <div class="therapist-card">
+        <div>
+          <div class="name">Novelyn Hinazumi <span class="credential">LMFT</span></div>
+          <div class="location">Lihue</div>
+          <div class="why">Tied to a multi-island group practice that historically takes Quest plans. Strong backup.</div>
+        </div>
+        <div class="phone"><a href="tel:8082455914">808-245-5914</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Albert Scales III <span class="credential">LMFT</span></div>
+          <div class="location">Lihue</div>
+          <div class="why">Same group-practice connection. Male LMFT &mdash; some couples prefer a gender mix in the room.</div>
+        </div>
+        <div class="phone"><a href="tel:8083020212">808-302-0212</a></div>
+      </div>
+      <div class="therapist-card">
+        <div>
+          <div class="name">Sheryllee Ponce <span class="credential">LMFT</span></div>
+          <div class="location">Lihue</div>
+          <div class="why">Lihue-central solo practice.</div>
+        </div>
+        <div class="phone"><a href="tel:8086510937">808-651-0937</a></div>
+      </div>
+    </div>
+
+    <div class="backstop">
+      <div class="label">Backstop, if everyone is full or wait-listed</div>
+      <p><strong>Kauai Community Mental Health Center</strong> (state-run, accepts Quest, shorter waits) &mdash; <span class="phone-inline">808-274-3190</span></p>
+      <p><strong>Ho'ola Lahui Hawai'i</strong> (federally-qualified health center, integrated behavioral health, Quest-friendly) &mdash; <span class="phone-inline">808-240-0119</span></p>
+    </div>
+  </section>
+
+  <!-- ────── PHONE QUESTIONS ────── -->
+  <section style="--delay: 0.5s">
+    <span class="section-num">— 07 —</span>
+    <h2>Three questions to ask <em>on the phone.</em></h2>
+    <p style="color: var(--ink-mute); font-size: 16px; max-width: 580px;">Whoever you call, ask these in this order. The third one matters most.</p>
+
+    <ol class="phone-qs">
+      <li>"Do you take my Quest plan &mdash; [carrier name from your card]?"</li>
+      <li>"Are you accepting new couples for in-person sessions?"</li>
+      <li>"What is your training and screening protocol for couples work? Do you screen for things like coercive control or unequal commitment before starting couples work?"</li>
+    </ol>
+
+    <p>The answer you are hoping for on Question 3: a specific named framework <strong>(Gottman, EFT, IMAGO)</strong> <em>and</em> mention of screening each partner individually before couples work begins. A therapist who says some version of <em>"I take you seriously enough to look at the dynamic before just facilitating it"</em> &mdash; <span class="flag flag-green">Green flag</span></p>
+
+    <p>A therapist who is eager to skip straight to communication exercises without asking how you got here &mdash; <span class="flag flag-red">Not your room</span></p>
+  </section>
+
+  <!-- ────── ONE THING FOR YOURSELF ────── -->
+  <section style="--delay: 0.55s">
+    <span class="section-num">— 08 —</span>
+    <h2>One thing worth doing <em>for yourself.</em></h2>
+    <div class="card">
+      <p>Whether or not you do couples work, on the same insurance call, ask for an <strong>individual therapist for yourself.</strong> Not because anything is wrong with you. Because you deserve a room where you are the only person on the page.</p>
+      <p>Same call, same plan, no extra step &mdash; just say <em>"I also want to start individual therapy."</em></p>
+      <p>If a couples therapist is the right move, your individual therapist becomes a private space alongside it. If not, the individual therapist is where you sort everything else out. <strong>Either way, it is yours.</strong></p>
+    </div>
+  </section>
+
+  <!-- ────── PRACTICAL THING ────── -->
+  <section style="--delay: 0.6s">
+    <span class="section-num">— 09 —</span>
+    <h2>One practical thing, <em>while it is fresh.</em></h2>
+    <p>Sometime in the next week, when you have a quiet half-hour, <strong>write down for yourself what was going on before</strong> &mdash; not as a hate-list, just as notes, dates, things he said or did that made you feel small or unseen, things you found yourself accepting that you would not have accepted from a stranger. Phone notes app is fine.</p>
+    <p>Memory gets reshaped by what comes after. In three months you may want to read it again, and remember what you knew. <strong>Future-you will thank present-you.</strong></p>
+  </section>
+
+  <!-- ────── 90-DAY TIMELINE ────── -->
+  <section style="--delay: 0.65s">
+    <span class="section-num">— 10 —</span>
+    <h2>The shape of the <em>next three months.</em></h2>
+    <p style="color: var(--ink-mute); font-size: 16px; max-width: 580px;">If you want a frame.</p>
+
+    <ul class="timeline">
+      <li>
+        <span class="week">Weeks 1 — 2</span>
+        <strong>Make the insurance call.</strong>
+        <p>Book individual therapy. Optionally book couples therapy. Write your private notes.</p>
+      </li>
+      <li>
+        <span class="week">Weeks 3 — 8</span>
+        <strong>Stay separated physically.</strong>
+        <p>Text, call, see him as you choose. But: do not move back in, and do not combine anything material. Watch what holds and what doesn't, when no big argument is fresh.</p>
+      </li>
+      <li>
+        <span class="week">Weeks 9 — 12</span>
+        <strong>Check in with yourself.</strong>
+        <p>And with your individual therapist. Has the change held when no one was watching? Has the <em>original thing</em> &mdash; not the noise around it &mdash; actually been addressed?</p>
+      </li>
+      <li>
+        <span class="week">Day 90</span>
+        <strong>You decide what is next.</strong>
+        <p>With three months of evidence in your hands instead of three weeks of promises. There is no script for Day 90. <strong>That is yours.</strong></p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ────── BOOKS ────── -->
+  <section style="--delay: 0.7s">
+    <span class="section-num">— 11 —</span>
+    <h2>If you want to <em>read more.</em></h2>
+    <p>You don't have homework. But if you are someone who reads to think, two things exist:</p>
+
+    <ul class="books">
+      <li>
+        <strong>Lundy Bancroft &mdash; <em>Why Does He Do That?</em></strong>
+        The gold-standard book on recognizing controlling-partner patterns, and on telling the difference between someone genuinely changing and someone who has just learned new vocabulary. It is not a "leave him" book. It is a "see clearly" book.
+      </li>
+      <li>
+        <strong>Dr. Ramani Durvasula on YouTube</strong>
+        Short, free videos on this kind of post-separation pattern. The search term <em>"hoovering"</em> finds the most relevant ones.
+      </li>
+    </ul>
+
+    <p style="color: var(--ink-mute); font-size: 15px; margin-top: 16px;">If neither calls to you, ignore them.</p>
+  </section>
+
+  <!-- ────── CLOSING ────── -->
+  <div class="pullquote" style="--delay: 0.75s; margin-top: 96px;">
+    <div class="mark">&ldquo;</div>
+    <p>You have your own gut, your own clock, your own life. This document does not tell you what to do. It gives you tools for thinking. The decision &mdash; every part of it &mdash; <strong>is yours.</strong></p>
+    <div class="attr">— And it always was</div>
+  </div>
+
+  <div class="footer">
+    <div class="ornament">✦</div>
+    If you want to talk, call.<br>
+    If you want to be quiet, be quiet.<br>
+    The door does not have a clock on it.
+  </div>
+
+</div>
+
+</body>
+</html>
